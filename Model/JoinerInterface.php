@@ -49,6 +49,14 @@ interface JoinerInterface
     public function joinOn($on);
 
     /**
+     * Additional "join on"(?)
+     * 
+     * @param $where
+     * @return mixed
+     */
+    public function joinWhere($where);
+
+    /**
      * Array of fields to select from the joined table
      * 
      * @param $selectFields

@@ -16,27 +16,32 @@ class EavCollectionJoiner implements JoinerInterface
     /**
      * @var string $tablename
      */
-    protected $tablename;
+    protected $tablename = null;
 
     /**
      * @var string $tableAlias
      */
-    protected $tableAlias;
+    protected $tableAlias = null;
 
     /**
      * @var string $joinType
      */
-    protected $joinType;
+    protected $joinType = null;
 
     /**
      * @var array $joinOn
      */
-    protected $joinOn;
+    protected $joinOn = null;
+
+    /**
+     * @var string $joinWhere
+     */
+    protected $joinWhere = null;
 
     /**
      * @var array $joinSelectFields
      */
-    protected $joinSelectFields;
+    protected $joinSelectFields = null;
     
     
     /**
@@ -123,6 +128,22 @@ class EavCollectionJoiner implements JoinerInterface
     }
 
     /**
+     * Additional "join on"(?) 
+     * passed to $cond param of \Magento\Eav\Model\Entity\Collection\AbstractCollection::joinTable()
+     * 
+     * @see \Magento\Eav\Model\Entity\Collection\AbstractCollection::joinTable()
+     * @param $where
+     * @return mixed
+     */
+    public function joinWhere($where)
+    {
+        // todo validate
+        $this->verifyStart();
+        $this->joinWhere = $where;
+        return $this;
+    }
+
+    /**
      * Array of fields to select from the joined table
      *
      * @param $selectFields
@@ -154,6 +175,8 @@ class EavCollectionJoiner implements JoinerInterface
             $cond,
             $joinType
         );
+        
+        $this->reset();
     }
 
     /**
@@ -175,29 +198,37 @@ class EavCollectionJoiner implements JoinerInterface
             throw new \Exception('Must set tablename with setTablename()');
         }
     }
-    
-    
+
+    /**
+     * Get the $bind param for joinTable
+     * 
+     * @return array
+     * @throws \Exception
+     */
     protected function getParamBind()
     {
-        // todo
-        
-        return [];
+        if (isset($this->joinOn)) {
+            return $this->joinOn;
+        } else {
+            throw new \Exception("must set on condition with joinOn()");
+        }
     }
 
-
+    /**
+     * Get the $fields param for joinTable
+     * 
+     * @return array
+     * @throws \Exception
+     */
     protected function getParamFields()
     {
-        // todo
-
-        return [];
+        return $this->joinSelectFields;
     }
 
     
     protected function getParamCond()
     {
-        // todo
-
-        return [];
+        return $this->where;
     }
 
     /**
@@ -212,5 +243,19 @@ class EavCollectionJoiner implements JoinerInterface
         } else {
             return self::INNER;
         }
+    }
+
+    /**
+     * Reset joiner to initial state
+     */
+    protected function reset()
+    {
+        $this->eavCollection = null;
+        $this->tablename = null;
+        $this->tableAlias = null;
+        $this->joinType = null;
+        $this->joinOn = null;
+        $this->joinWhere = null;
+        $this->joinSelectFields = null;
     }
 }

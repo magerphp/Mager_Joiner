@@ -10,7 +10,7 @@ class Joiner implements JoinerInterface
     protected $eavCollectionJoiner;
 
     /**
-     * @var mixed
+     * @var JoinerInterface $chosenJoiner
      */
     protected $chosenJoiner = null;
 
@@ -109,6 +109,19 @@ class Joiner implements JoinerInterface
     {
         $this->verifyStart();
         $this->chosenJoiner->joinOn($on);
+        return $this;
+    }
+
+    /**
+     * Additional "join on"(?)
+     * 
+     * @param $where
+     * @return mixed
+     */
+    public function joinWhere($where)
+    {
+        $this->verifyStart();
+        $this->chosenJoiner->joinWhere($where);
         return $this;
     }
 
