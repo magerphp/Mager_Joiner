@@ -29,7 +29,7 @@ class EavCollectionJoiner implements JoinerInterface
     protected $joinType = null;
 
     /**
-     * @var array $joinOn
+     * @var string $joinOn
      */
     protected $joinOn = null;
 
@@ -52,7 +52,6 @@ class EavCollectionJoiner implements JoinerInterface
      */
     public function startWith($eavCollection)
     {
-        // todo put class on param
         // todo validate
         $this->eavCollection = $eavCollection;
         return $this;
@@ -114,7 +113,7 @@ class EavCollectionJoiner implements JoinerInterface
     }
 
     /**
-     * The "join on" array ['table1_joinfield' => 'table2_joinfield']
+     * The "join on" string 'table1_joinfield = table2_joinfield'
      *
      * @param $on
      * @return mixed
@@ -162,6 +161,8 @@ class EavCollectionJoiner implements JoinerInterface
      */
     public function call()
     {
+        $this->verifyStart();
+        
         $table = $this->getParamTable();
         $bind = $this->getParamBind();
         $fields = $this->getParamFields();
@@ -189,13 +190,13 @@ class EavCollectionJoiner implements JoinerInterface
     {
         if (isset($this->tablename)) {
             if (isset($this->tableAlias)) {
-                $tableParam = [$this->tableAlias => $this->tablename];
+                $tableParam = [$this->tableAlias => $this->tablename];  // todo or is it reverse?
             } else {
                 $tableParam = $this->tablename;
             }
             return $tableParam;
         } else {
-            throw new \Exception('Must set tablename with setTablename()');
+            throw new \Exception('Mager_Joiner: Must set tablename with setTablename()');
         }
     }
 
@@ -210,7 +211,7 @@ class EavCollectionJoiner implements JoinerInterface
         if (isset($this->joinOn)) {
             return $this->joinOn;
         } else {
-            throw new \Exception("must set on condition with joinOn()");
+            throw new \Exception("Mager_Joiner: Must set on condition with joinOn()");
         }
     }
 
@@ -225,10 +226,14 @@ class EavCollectionJoiner implements JoinerInterface
         return $this->joinSelectFields;
     }
 
-    
+    /**
+     * Get the $cond param for joinTable
+     * 
+     * @return string
+     */
     protected function getParamCond()
     {
-        return $this->where;
+        return $this->joinWhere;
     }
 
     /**

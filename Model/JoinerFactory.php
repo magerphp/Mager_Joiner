@@ -2,8 +2,6 @@
 
 namespace Mager\Joiner\Model;
 
-use Magento\Framework\App\ObjectManager;
-
 class JoinerFactory
 {
     /**
@@ -20,11 +18,12 @@ class JoinerFactory
 
     /**
      * JoinerFactory constructor.
-     * @param ObjectManager $objectManager
+     * 
+     * @param \Magento\Framework\ObjectManagerInterface $objectManager
      */
     public function __construct
     (
-        ObjectManager $objectManager
+        \Magento\Framework\ObjectManagerInterface $objectManager
     )
     {
         $this->objectManager = $objectManager;

@@ -100,7 +100,7 @@ class Joiner implements JoinerInterface
     }
 
     /**
-     * The "join on" array ['table1_joinfield' => 'table2_joinfield']
+     * The "join on" string 'table1_joinfield = table2_joinfield'
      *
      * @param $on
      * @return mixed
