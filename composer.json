@@ -1,0 +1,8 @@
+{
+  "name": "mager/joiner",
+  "description": "Self-documenting wrapper functions for joining in Magento 2",
+  "require": {
+    "php": "^5.3.3 || ^7.0",
+    "mager/base": "0.*"
+  }
+}
