@@ -2,6 +2,11 @@
 
 namespace Mager\Joiner\Model;
 
+// todo this should be an abstract class!
+
+// todo refactor common functions from eav and non-eav joiners here
+
+
 interface JoinerInterface
 {
     const LEFT = 'left';
@@ -14,7 +19,7 @@ interface JoinerInterface
      * @param $something
      * @return mixed
      */
-    public function startWith($something);
+    public function startWith($something);  // todo setCollection
 
     /**
      * The table to join to
@@ -22,7 +27,7 @@ interface JoinerInterface
      * @param $tablename
      * @return mixed
      */
-    public function joinTablename($tablename);
+    public function joinTablename($tablename);  // todo setTablename
 
     /**
      * The alias for the table to join to
@@ -30,7 +35,7 @@ interface JoinerInterface
      * @param $alias
      * @return mixed
      */
-    public function joinTableAlias($alias);
+    public function joinTableAlias($alias);     // todo setTableAlias
 
     /**
      * The join direction: left, right, inner
@@ -38,7 +43,7 @@ interface JoinerInterface
      * @param $type
      * @return mixed
      */
-    public function joinType($type);
+    public function joinType($type);            // todo setJoinType
 
     /**
      * The "join on" array ['table1_joinfield' => 'table2_joinfield']
@@ -46,7 +51,7 @@ interface JoinerInterface
      * @param $on
      * @return mixed
      */
-    public function joinOn($on);
+    public function joinOn($on);                // todo setJoinOn
 
     /**
      * Additional "join on"(?)
@@ -54,7 +59,7 @@ interface JoinerInterface
      * @param $where
      * @return mixed
      */
-    public function joinWhere($where);
+    public function joinWhere($where);          // todo setWhere / or setJoinWhere?
 
     /**
      * Array of fields to select from the joined table
@@ -62,10 +67,10 @@ interface JoinerInterface
      * @param $selectFields
      * @return mixed
      */
-    public function joinSelectFields($selectFields);
+    public function joinSelectFields($selectFields);     // todo setJoinSelectFields?
 
     /**
      * Do the join
      */
-    public function call();
+    public function call();                         // todo exec? doJoin? doIt? commit?
 }

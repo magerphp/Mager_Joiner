@@ -37,6 +37,9 @@ class JoinerFactory
      */
     public function create($startingPoint = false)
     {
+        // todo have factory return Eav/Non-Eav joiner, and skip Model/Joiner.php all together?
+        // todo change startWith to setCollection
+        
         /**
          * @var \Mager\Joiner\Model\Joiner $joiner
          */

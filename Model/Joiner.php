@@ -45,9 +45,9 @@ class Joiner implements JoinerInterface
      */
     public function startWith($something)
     {
-        // todo detect if is an eav collection, etc, set chosen joiner
+        // todo set chosen joiner
         
-        $isEavCollection = true;
+        $isEavCollection = $something instanceof \Magento\Eav\Model\Entity\Collection\AbstractCollection;
         $isNonEavCollection = false;
         
         if ($isEavCollection) {
