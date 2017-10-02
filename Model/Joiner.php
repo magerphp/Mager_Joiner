@@ -160,5 +160,15 @@ class Joiner implements JoinerInterface
     {
         $this->verifyStart();
         $this->chosenJoiner->call();
+        
+        $this->reset();
+    }
+
+    /**
+     * Reset joiner back to init state
+     */
+    protected function reset()
+    {
+        $this->chosenJoiner = null;
     }
 }
