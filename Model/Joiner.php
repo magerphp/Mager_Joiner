@@ -10,6 +10,11 @@ class Joiner implements JoinerInterface
     protected $eavCollectionJoiner;
 
     /**
+     * @var Joiner\NonEavCollectionJoiner $nonEavCollectionJoiner
+     */
+    protected $nonEavCollectionJoiner;
+
+    /**
      * @var JoinerInterface $chosenJoiner
      */
     protected $chosenJoiner = null;
@@ -19,13 +24,16 @@ class Joiner implements JoinerInterface
      * Joiner constructor.
      * 
      * @param Joiner\EavCollectionJoiner $eavCollectionJoiner
+     * @param Joiner\NonEavCollectionJoiner $nonEavCollectionJoiner
      */
     public function __construct
     (
-        Joiner\EavCollectionJoiner $eavCollectionJoiner
+        Joiner\EavCollectionJoiner $eavCollectionJoiner,
+        Joiner\NonEavCollectionJoiner $nonEavCollectionJoiner
     )
     {
         $this->eavCollectionJoiner = $eavCollectionJoiner;
+        $this->nonEavCollectionJoiner = $nonEavCollectionJoiner;
     }
 
     /**
