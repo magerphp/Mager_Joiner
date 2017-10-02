@@ -212,6 +212,9 @@ class NonEavCollectionJoiner implements JoinerInterface
     protected function getParamCond()
     {
         if (isset($this->joinOn)) {
+            
+            // todo use $this->joinWhere
+            
             return $this->joinOn;
         } else {
             throw new \Exception('Mager_Joiner: must set join condition with joinOn()');

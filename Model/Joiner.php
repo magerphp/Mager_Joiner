@@ -41,14 +41,21 @@ class Joiner implements JoinerInterface
      *
      * @param $something
      * @return mixed
+     * @throws \Exception
      */
     public function startWith($something)
     {
         // todo detect if is an eav collection, etc, set chosen joiner
         
         $isEavCollection = true;
+        $isNonEavCollection = false;
+        
         if ($isEavCollection) {
             $this->chosenJoiner = $this->eavCollectionJoiner;
+        } else if ($isNonEavCollection) {
+            $this->chosenJoiner = $this->nonEavCollectionJoiner;
+        } else {
+            throw new \Exception('Mager_Joiner: Must start with a collection in startWith()');
         }
         
         $this->chosenJoiner->startWith($something);
