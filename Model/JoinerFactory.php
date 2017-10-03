@@ -2,51 +2,78 @@
 
 namespace Mager\Joiner\Model;
 
+use \Magento\Framework\ObjectManagerInterface;
+use \Exception;
+
 class JoinerFactory
 {
     /**
-     * The thing to build!
-     */
-    const OBJECT_CLASS = 'Mager\Joiner\Model\Joiner';
-    
-    
-    /**
-     * @var ObjectManager $objectManager
+     * @var ObjectManagerInterface $objectManager
      */
     protected $objectManager;
+
+    /**
+     * @var EavCollectionJoinerFactory $eavCollectionJoinerFactory
+     */
+    protected $eavCollectionJoinerFactory;
+
+    /**
+     * @var NonEavCollectionJoinerFactory $nonEavCollectionJoinerFactory
+     */
+    protected $nonEavCollectionJoinerFactory;
 
 
     /**
      * JoinerFactory constructor.
      * 
-     * @param \Magento\Framework\ObjectManagerInterface $objectManager
+     * @param ObjectManagerInterface $objectManager
+     * @param EavCollectionJoinerFactory $eavCollectionJoinerFactory
+     * @param NonEavCollectionJoinerFactory $nonEavCollectionJoinerFactory
      */
     public function __construct
     (
-        \Magento\Framework\ObjectManagerInterface $objectManager
+        ObjectManagerInterface $objectManager,
+        EavCollectionJoinerFactory $eavCollectionJoinerFactory,
+        NonEavCollectionJoinerFactory $nonEavCollectionJoinerFactory
     )
     {
         $this->objectManager = $objectManager;
+        $this->eavCollectionJoinerFactory = $eavCollectionJoinerFactory;
+        $this->nonEavCollectionJoinerFactory = $nonEavCollectionJoinerFactory;
     }
 
     /**
-     * Create our joiner, potentially from a starting point
+     * Create our joiner
      * 
-     * @param mixed $startingPoint
-     * @return Joiner
+     * @param \Magento\Framework\Data\Collection\AbstractDb|\Magento\Eav\Model\Entity\Collection\AbstractCollection $collection   
+     * @return \Mager\Joiner\Model\AbstractJoiner
+     * @throws \Exception
      */
-    public function create($startingPoint = false)
+    public function create($collection)
     {
-        // todo have factory return Eav/Non-Eav joiner, and skip Model/Joiner.php all together?
-        // todo change startWith to setCollection
+        $isEavCollection = $collection instanceof \Magento\Eav\Model\Entity\Collection\AbstractCollection;
         
-        /**
-         * @var \Mager\Joiner\Model\Joiner $joiner
-         */
-        $joiner = $this->objectManager->create(self::OBJECT_CLASS);
-        if ($startingPoint) {
-            $joiner->startWith($startingPoint);
+        // todo \Magento\Framework\Data\Collection\AbstractDb?
+        // todo or \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection?
+        $isNonEavCollection = $collection instanceof \Magento\Framework\Data\Collection\AbstractDb;
+
+        
+        // todo reindex?
+        // todo need to create these factories? maybe factories are only auto-created for crud-models?
+        
+        if ($isEavCollection) {
+            $joiner = $this->eavCollectionJoinerFactory->create();
+        } else if ($isNonEavCollection) {
+            $joiner = $this->nonEavCollectionJoinerFactory->create();
+        } else {
+            throw new Exception('Mager_Joiner: Must set a collection');
         }
+
+        /**
+         * @var \Mager\Joiner\Model\AbstractJoiner $joiner
+         */
+        $joiner->setCollection($collection);
+        
         return $joiner;
     }
 }
