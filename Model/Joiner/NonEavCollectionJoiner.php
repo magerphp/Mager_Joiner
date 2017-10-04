@@ -26,7 +26,7 @@ class NonEavCollectionJoiner extends AbstractJoiner
     /**
      * Do the join
      * 
-     * @see 
+     * @see \Magento\Framework\DB\Select::join
      */
     public function join()
     {

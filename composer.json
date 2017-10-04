@@ -1,6 +1,6 @@
 {
     "name": "mager/module-joiner",
-    "description": "Self-documenting wrapper functions for joining in Magento 2",
+    "description": "Self-documenting wrapper functions for joining to collections in Magento 2",
     "require": {
         "php": "^7.0"
     },

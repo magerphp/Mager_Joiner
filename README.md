@@ -41,7 +41,7 @@ try {
     $joiner->setJoinSelectFields(['needs_sync']);
     
     // do the join!
-    $joiner->commit();
+    $joiner->join();
    
 } catch (JoinerParamAlreadySetException $jpase) {
     echo "<b>ya done messed up by attempting to reset the " . $jpase->getMessage() . "</b>";
@@ -57,21 +57,21 @@ $joiner->setCollection($collection)
        ->setJoinTablename($tablename)
        ->setJoinOn($on)
        ...
-       ->commit();
+       ->join();
 ~~~
 
 - You can reuse the joiner
 ~~~
 $joiner->setCollection($collection)
        ...
-       ->commit();
+       ->join();
        
 $joiner->setCollection($collection2)
        ...
-       ->commit();
+       ->join();
 ~~~
 
-- But don't attempt to reset a joiner param before calling commit()
+- But don't attempt to reset a joiner param before calling join()
 ~~~
 $join->setCollection($collection)
      ->setCollection($collection)
