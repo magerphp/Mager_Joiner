@@ -37,18 +37,12 @@ class Joiner implements JoinerInterface
     }
 
     /**
-     * Starting collection
-     *
-     * @param $something
-     * @return mixed
-     * @throws \Exception
+     * {@inheritdoc}
      */
-    public function startWith($something)
+    public function setCollection($collection)
     {
-        // todo set chosen joiner
-        
-        $isEavCollection = $something instanceof \Magento\Eav\Model\Entity\Collection\AbstractCollection;
-        $isNonEavCollection = false;
+        $isEavCollection = $collection instanceof \Magento\Eav\Model\Entity\Collection\AbstractCollection;
+        $isNonEavCollection = $collection instanceof \Magento\Framework\Data\Collection\AbstractDb;
         
         if ($isEavCollection) {
             $this->chosenJoiner = $this->eavCollectionJoiner;
@@ -58,7 +52,7 @@ class Joiner implements JoinerInterface
             throw new \Exception('Mager_Joiner: Must start with a collection in startWith()');
         }
         
-        $this->chosenJoiner->startWith($something);
+        $this->chosenJoiner->setCollection($collection);
         return $this;
     }
 
@@ -76,90 +70,72 @@ class Joiner implements JoinerInterface
     }
 
     /**
-     * The table to join to
-     *
-     * @param $tablename
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function joinTablename($tablename)
+    public function setJoinTablename($joinTablename)
     {
         $this->verifyStart();
-        $this->chosenJoiner->joinTableName($tablename);
+        $this->chosenJoiner->setJoinTablename($joinTablename);
         return $this;
     }
 
     /**
-     * The alias for the table to join to
-     *
-     * @param $alias
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function joinTableAlias($alias)
+    public function setJoinTableAlias($joinTableAlias)
     {
         $this->verifyStart();
-        $this->chosenJoiner->joinTableAlias($alias);
+        $this->chosenJoiner->setJoinTableAlias($joinTableAlias);
         return $this;
     }
 
     /**
-     * The join direction: left, right, inner
-     *
-     * @param $type
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function joinType($type)
+    public function setJoinType($joinType)
     {
         $this->verifyStart();
-        $this->chosenJoiner->joinType($type);
+        $this->chosenJoiner->setJoinType($joinType);
         return $this;
     }
 
     /**
-     * The "join on" string 'table1_joinfield = table2_joinfield'
-     *
-     * @param $on
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function joinOn($on)
+    public function setJoinOn($joinOn)
     {
         $this->verifyStart();
-        $this->chosenJoiner->joinOn($on);
+        $this->chosenJoiner->setJoinOn($joinOn);
         return $this;
     }
 
     /**
-     * Additional "join on"(?)
-     * 
-     * @param $where
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function joinWhere($where)
+    public function setJoinWhere($joinWhere)
     {
         $this->verifyStart();
-        $this->chosenJoiner->joinWhere($where);
+        $this->chosenJoiner->setJoinWhere($joinWhere);
         return $this;
     }
 
     /**
-     * Array of fields to select from the joined table
-     *
-     * @param $selectFields
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function joinSelectFields($selectFields)
+    public function setJoinSelectFields($joinSelectFields)
     {
         $this->verifyStart();
-        $this->chosenJoiner->joinSelectFields($selectFields);
+        $this->chosenJoiner->setJoinSelectFields($joinSelectFields);
         return $this;
     }
 
     /**
-     * Do the join
+     * {@inheritdoc}
      */
-    public function call()
+    public function commit()
     {
         $this->verifyStart();
-        $this->chosenJoiner->call();
+        $this->chosenJoiner->commit();
         
         $this->reset();
     }

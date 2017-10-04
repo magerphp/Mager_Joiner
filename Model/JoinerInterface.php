@@ -2,75 +2,73 @@
 
 namespace Mager\Joiner\Model;
 
-// todo this should be an abstract class!
-
-// todo refactor common functions from eav and non-eav joiners here
-
-
 interface JoinerInterface
 {
+    /**
+     * Join types
+     */
     const LEFT = 'left';
     const RIGHT = 'right';
     const INNER = 'inner';
     
     /**
-     * Starting collection
+     * Set starting collection
      * 
-     * @param $something
+     * @param $collection
      * @return mixed
      */
-    public function startWith($something);  // todo setCollection
+    public function setCollection($collection);
 
     /**
      * The table to join to
      * 
-     * @param $tablename
+     * @param $joinTablename
      * @return mixed
      */
-    public function joinTablename($tablename);  // todo setTablename
+    public function setJoinTablename($joinTablename);
 
     /**
      * The alias for the table to join to
      * 
-     * @param $alias
+     * @param $tableAlias
      * @return mixed
      */
-    public function joinTableAlias($alias);     // todo setTableAlias
+    public function setJoinTableAlias($joinTableAlias);
 
     /**
      * The join direction: left, right, inner
      * 
-     * @param $type
+     * @param $joinType
      * @return mixed
      */
-    public function joinType($type);            // todo setJoinType
+    public function setJoinType($joinType);
 
     /**
      * The "join on" array ['table1_joinfield' => 'table2_joinfield']
      * 
-     * @param $on
+     * @param $joinOn
      * @return mixed
      */
-    public function joinOn($on);                // todo setJoinOn
+    public function setJoinOn($joinOn);
 
     /**
      * Additional "join on"(?)
      * 
-     * @param $where
+     * @param $joinWhere
      * @return mixed
      */
-    public function joinWhere($where);          // todo setWhere / or setJoinWhere?
+    public function setJoinWhere($joinWhere);
 
     /**
      * Array of fields to select from the joined table
      * 
-     * @param $selectFields
+     * @param $joinSelectFields
      * @return mixed
      */
-    public function joinSelectFields($selectFields);     // todo setJoinSelectFields?
+    public function setJoinSelectFields($joinSelectFields);
 
     /**
      * Do the join
      */
-    public function call();                         // todo exec? doJoin? doIt? commit?
+    public function commit();
 }
