@@ -25,6 +25,8 @@ class NonEavCollectionJoiner extends AbstractJoiner
     
     /**
      * Do the join
+     * 
+     * @see 
      */
     public function commit()
     {
@@ -67,7 +69,7 @@ class NonEavCollectionJoiner extends AbstractJoiner
             
             return $nameParam;
         } else {
-            throw new Exception('Mager_Joiner: must set table');
+            throw new Exception('Mager_Joiner: must set table with setJoinTablename()');
         }
     }
 
@@ -82,7 +84,7 @@ class NonEavCollectionJoiner extends AbstractJoiner
             
             return $this->joinOn;
         } else {
-            throw new \Exception('Mager_Joiner: must set join condition with joinOn()');
+            throw new \Exception('Mager_Joiner: must set join condition with setJoinOn()');
         }
     }
 

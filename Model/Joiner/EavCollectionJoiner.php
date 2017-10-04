@@ -65,7 +65,7 @@ class EavCollectionJoiner extends AbstractJoiner
             }
             return $tableParam;
         } else {
-            throw new Exception('Mager_Joiner: Must set tablename with setTablename()');
+            throw new Exception('Mager_Joiner: must set table with setJoinTablename()');
         }
     }
 
@@ -80,7 +80,7 @@ class EavCollectionJoiner extends AbstractJoiner
         if (isset($this->joinOn)) {
             return $this->joinOn;
         } else {
-            throw new Exception("Mager_Joiner: Must set on condition with joinOn()");
+            throw new Exception("Mager_Joiner: Must set on condition with setJoinOn()");
         }
     }
 

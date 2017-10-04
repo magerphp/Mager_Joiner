@@ -3,9 +3,9 @@
 ## Description
 Work in Progress
 
-Wrapper functions for joining to collections in Magento 2.
+Wrapper functions for joining to EAV and non-EAV collections in Magento 2.
 Provides a set of function calls that are worded more closely to a SQL join,
-which to me seem more intuitive than the parameter names provided by core Magento 2.
+which to me seems more intuitive than the parameter names provided by core Magento 2.
 
 ## Usage
 ~~~
@@ -27,7 +27,7 @@ try {
     // set table alias
     $joiner->setJoinTableAlias('mager_product');
     
-    // set join type (OPTIONAL)
+    // set join type (OPTIONAL, defaults to "inner")
     $joiner->setJoinType($joiner::LEFT);
     
     // todo update!
@@ -52,7 +52,6 @@ try {
 ~~~
 
 - You can string function calls together, because each function returns $this
-- e.g. 
 ~~~
 $joiner->setCollection($collection)
        ->setJoinTablename($tablename)
@@ -70,6 +69,15 @@ $joiner->setCollection($collection)
 $joiner->setCollection($collection2)
        ...
        ->commit();
+~~~
+
+- But don't attempt to reset a joiner param before calling commit()
+~~~
+$join->setCollection($collection)
+     ->setCollection($collection)
+     ...
+     
+ // throws JoinerParamAlreadySetException
 ~~~
 
 

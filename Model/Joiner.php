@@ -2,6 +2,9 @@
 
 namespace Mager\Joiner\Model;
 
+use \Magento\Eav\Model\Entity\Collection\AbstractCollection as EavCollection;
+use \Magento\Framework\Data\Collection\AbstractDb as NonEavCollection;
+
 class Joiner implements JoinerInterface
 {
     /**
@@ -41,15 +44,15 @@ class Joiner implements JoinerInterface
      */
     public function setCollection($collection)
     {
-        $isEavCollection = $collection instanceof \Magento\Eav\Model\Entity\Collection\AbstractCollection;
-        $isNonEavCollection = $collection instanceof \Magento\Framework\Data\Collection\AbstractDb;
+        $isEavCollection = $collection instanceof EavCollection;
+        $isNonEavCollection = $collection instanceof NonEavCollection;
         
         if ($isEavCollection) {
             $this->chosenJoiner = $this->eavCollectionJoiner;
         } else if ($isNonEavCollection) {
             $this->chosenJoiner = $this->nonEavCollectionJoiner;
         } else {
-            throw new \Exception('Mager_Joiner: Must start with a collection in startWith()');
+            throw new \Exception('Mager_Joiner: Must pass a collection to setCollection()');
         }
         
         $this->chosenJoiner->setCollection($collection);
@@ -57,24 +60,10 @@ class Joiner implements JoinerInterface
     }
 
     /**
-     * Whether this join has a starting point
-     * 
-     * @throws \Exception
-     */
-    protected function verifyStart()
-    {
-        $isStarted = $this->chosenJoiner !== null;
-        if (!$isStarted) {
-            throw new \Exception('Mager_Joiner: Must set starting point with startWith() before calling ' . __FUNCTION__);
-        }
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function setJoinTablename($joinTablename)
     {
-        $this->verifyStart();
         $this->chosenJoiner->setJoinTablename($joinTablename);
         return $this;
     }
@@ -84,7 +73,6 @@ class Joiner implements JoinerInterface
      */
     public function setJoinTableAlias($joinTableAlias)
     {
-        $this->verifyStart();
         $this->chosenJoiner->setJoinTableAlias($joinTableAlias);
         return $this;
     }
@@ -94,7 +82,6 @@ class Joiner implements JoinerInterface
      */
     public function setJoinType($joinType)
     {
-        $this->verifyStart();
         $this->chosenJoiner->setJoinType($joinType);
         return $this;
     }
@@ -104,7 +91,6 @@ class Joiner implements JoinerInterface
      */
     public function setJoinOn($joinOn)
     {
-        $this->verifyStart();
         $this->chosenJoiner->setJoinOn($joinOn);
         return $this;
     }
@@ -114,7 +100,6 @@ class Joiner implements JoinerInterface
      */
     public function setJoinWhere($joinWhere)
     {
-        $this->verifyStart();
         $this->chosenJoiner->setJoinWhere($joinWhere);
         return $this;
     }
@@ -124,7 +109,6 @@ class Joiner implements JoinerInterface
      */
     public function setJoinSelectFields($joinSelectFields)
     {
-        $this->verifyStart();
         $this->chosenJoiner->setJoinSelectFields($joinSelectFields);
         return $this;
     }
@@ -134,9 +118,7 @@ class Joiner implements JoinerInterface
      */
     public function commit()
     {
-        $this->verifyStart();
         $this->chosenJoiner->commit();
-        
         $this->reset();
     }
 

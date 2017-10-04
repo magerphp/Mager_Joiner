@@ -60,8 +60,6 @@ abstract class AbstractJoiner implements JoinerInterface
      */
     public function setJoinTablename($joinTablename)
     {
-        // todo validate
-        
         if ($this->joinTablename) {
             throw new JoinerParamAlreadySetException(JoinerParamAlreadySetException::JOIN_TABLE_NAME);
         }
@@ -75,8 +73,6 @@ abstract class AbstractJoiner implements JoinerInterface
      */
     public function setJoinTableAlias($joinTableAlias)
     {
-        // todo validate
-        
         if ($this->joinTableAlias) {
             throw new JoinerParamAlreadySetException(JoinerParamAlreadySetException::JOIN_TABLE_ALIAS);
         }
@@ -90,8 +86,6 @@ abstract class AbstractJoiner implements JoinerInterface
      */
     public function setJoinType($joinType)
     {
-        // todo validate
-        
         if ($this->joinType) {
             throw new JoinerParamAlreadySetException(JoinerParamAlreadySetException::JOIN_TYPE);
         }
@@ -105,8 +99,6 @@ abstract class AbstractJoiner implements JoinerInterface
      */
     public function setJoinOn($joinOn)
     {
-        // todo validate
-        
         if ($this->joinOn) {
             throw new JoinerParamAlreadySetException(JoinerParamAlreadySetException::JOIN_ON);
         }
@@ -120,8 +112,6 @@ abstract class AbstractJoiner implements JoinerInterface
      */
     public function setJoinWhere($joinWhere)
     {
-        // todo validate
-        
         if ($this->joinWhere) {
             throw new JoinerParamAlreadySetException(JoinerParamAlreadySetException::JOIN_WHERE);
         }
@@ -135,8 +125,6 @@ abstract class AbstractJoiner implements JoinerInterface
      */
     public function setJoinSelectFields($joinSelectFields)
     {
-        // todo validate
-        
         if ($this->joinSelectFields) {
             throw new JoinerParamAlreadySetException(JoinerParamAlreadySetException::JOIN_SELECT_FIELDS);
         }
@@ -156,8 +144,6 @@ abstract class AbstractJoiner implements JoinerInterface
      */
     protected function reset()
     {
-        // todo return collection instead of $this?
-        
         $this->collection = null;
         $this->joinTablename = null;
         $this->joinTableAlias = null;
@@ -165,6 +151,5 @@ abstract class AbstractJoiner implements JoinerInterface
         $this->joinOn = null;
         $this->joinWhere = null;
         $this->joinSelectFields = null;
-        return $this;
     }
 }
