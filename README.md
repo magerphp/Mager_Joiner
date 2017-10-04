@@ -1,6 +1,8 @@
 # Mager_Joiner
 
 ## Description
+Work in Progress
+
 Wrapper functions for joining to collections in Magento 2.
 Provides a set of function calls that are worded more closely to a SQL join,
 which to me seem more intuitive than the parameter names provided by core Magento 2.
@@ -28,8 +30,9 @@ try {
     // set join type (OPTIONAL)
     $joiner->setJoinType($joiner::LEFT);
     
+    // todo update!
     // set join where condition (OPTIONAL)
-    $joiner->setJoinWhere
+    $joiner->setJoinWhere()
     
     // set the "join on" condition
     $joiner->setJoinOn('product_id = entity_id');
