@@ -30,7 +30,7 @@ class EavCollectionJoiner extends AbstractJoiner
      * 
      * @see \Magento\Eav\Model\Entity\Collection::joinTable
      */
-    public function commit()
+    public function join()
     {
         $table = $this->getParamTable();
         $bind = $this->getParamBind();

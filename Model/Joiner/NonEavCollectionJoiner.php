@@ -28,7 +28,7 @@ class NonEavCollectionJoiner extends AbstractJoiner
      * 
      * @see 
      */
-    public function commit()
+    public function join()
     {
         /**
          * @var \Magento\Framework\DB\Select $select

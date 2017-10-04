@@ -70,5 +70,5 @@ interface JoinerInterface
     /**
      * Do the join
      */
-    public function commit();
+    public function join();
 }

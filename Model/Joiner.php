@@ -116,9 +116,9 @@ class Joiner implements JoinerInterface
     /**
      * {@inheritdoc}
      */
-    public function commit()
+    public function join()
     {
-        $this->chosenJoiner->commit();
+        $this->chosenJoiner->join();
         $this->reset();
     }
 

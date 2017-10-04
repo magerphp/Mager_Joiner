@@ -1,8 +1,16 @@
 {
-    "name": "mager/joiner",
+    "name": "mager/module-joiner",
     "description": "Self-documenting wrapper functions for joining in Magento 2",
     "require": {
-        "php": "^5.3.3 || ^7.0",
-        "mager/base": "0.*"
+        "php": "^7.0"
+    },
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Mager\\Joiner\\": ""
+        }
     }
 }

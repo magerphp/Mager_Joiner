@@ -136,7 +136,7 @@ abstract class AbstractJoiner implements JoinerInterface
     /**
      * {@inheritdoc}
      */
-    abstract function commit();
+    abstract function join();
 
     /**
      * Reset joiner to initial state
