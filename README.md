@@ -1,29 +1,74 @@
-# joiner
+# Mager_Joiner
+
+## Description
+Wrapper functions for joining to collections in Magento 2.
+Provides a set of function calls that are worded more closely to a SQL join,
+which to me seem more intuitive than the parameter names provided by core Magento 2.
 
 ## Usage
-$collection = $this->someCollectionFactory->create();
-$tablename = 'my_custom_table';
-$alias = 'my_table';
-$on = ['maintable_joinfield' => 'jointable_joinfield'];
+~~~
+try {
+    /**
+     * @var \Mager\Joiner\Model\Joiner $joiner
+     */
+    $joiner = $this->joinerFactory->create();
+    
+    $productCollection = $this->productCollectionFactory->create();
+    
+    // set an EAV or a non-EAV collection. 
+    // it determines which Magento join call to make
+    $joiner->setCollection($productCollection);
+    
+    // set the table name (does not take alias)
+    $joiner->setJoinTablename('mager_joinertester_product');
+    
+    // set table alias
+    $joiner->setJoinTableAlias('mager_product');
+    
+    // set join type (OPTIONAL)
+    $joiner->setJoinType($joiner::LEFT);
+    
+    // set join where condition (OPTIONAL)
+    $joiner->setJoinWhere
+    
+    // set the "join on" condition
+    $joiner->setJoinOn('product_id = entity_id');
+    
+    // set the fields to select from the joined table
+    $joiner->setJoinSelectFields(['needs_sync']);
+    
+    // do the join!
+    $joiner->commit();
+   
+} catch (JoinerParamAlreadySetException $jpase) {
+    echo "<b>ya done messed up by attempting to reset the " . $jpase->getMessage() . "</b>";
+} catch (Exception $e) {
+    echo "<b>ya done messed up: " . $e->getMessage() . "</b>";
 
-$selectFields = [
-    'jointable_field1' => 'jointable_field1_alias',  // or is it reverse?
-    'jointable_field2' => 'jointable_field2_alias',
-];
-// or
-// $selectFields = ['jointable_field1', 'jointable_field2'];
-// or
-// $selectFields = 'jointable_field1';
+}
+~~~
+
+- You can string function calls together, because each function returns $this
+- e.g. 
+~~~
+$joiner->setCollection($collection)
+       ->setJoinTablename($tablename)
+       ->setJoinOn($on)
+       ...
+       ->commit();
+~~~
+
+- You can reuse the joiner
+~~~
+$joiner->setCollection($collection)
+       ...
+       ->commit();
+       
+$joiner->setCollection($collection2)
+       ...
+       ->commit();
+~~~
 
 
-// or is it $joiner = $this->joinerFactory->create($collection);
 
-$this->joiner->startWith($collection)
-             ->joinTablename($tablename)
-             ->joinType($this->joiner::JOIN_LEFT)   // optional
-             ->as($alias)                           // optional
-             ->on($on)
-             ->selectFields($selectFields)
-             ->call();
-             
-// at this point your $collection is joined to $tablename with $selectFields added to the collection
+Rob Simmons 2017
