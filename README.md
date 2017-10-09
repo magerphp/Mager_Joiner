@@ -1,9 +1,9 @@
 # Mager_Joiner
 
 ## Description
-Work in Progress
-
-Wrapper functions for joining to EAV and non-EAV collections in Magento 2.
+- Magento 2 module
+- Work in Progress
+- Wrapper functions for joining to EAV and non-EAV collections in Magento 2.
 Provides a set of function calls that are worded more closely to a SQL join,
 which to me seems more intuitive than the parameter names provided by core Magento 2.
 
@@ -44,9 +44,9 @@ try {
     $joiner->join();
    
 } catch (JoinerParamAlreadySetException $jpase) {
-    echo "<b>ya done messed up by attempting to reset the " . $jpase->getMessage() . "</b>";
+    echo "ya done messed up by attempting to reset the " . $jpase->getMessage();
 } catch (Exception $e) {
-    echo "<b>ya done messed up: " . $e->getMessage() . "</b>";
+    echo "ya done messed up: " . $e->getMessage();
 
 }
 ~~~
@@ -73,7 +73,7 @@ $joiner->setCollection($collection2)
 
 - But don't attempt to reset a joiner param before calling join()
 ~~~
-$join->setCollection($collection)
+$joiner->setCollection($collection)
      ->setCollection($collection)
      ...
      

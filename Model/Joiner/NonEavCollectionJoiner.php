@@ -84,7 +84,7 @@ class NonEavCollectionJoiner extends AbstractJoiner
             
             return $this->joinOn;
         } else {
-            throw new \Exception('Mager_Joiner: must set join condition with setJoinOn()');
+            throw new Exception('Mager_Joiner: must set join condition with setJoinOn()');
         }
     }
 

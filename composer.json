@@ -1,10 +1,19 @@
 {
     "name": "mager/module-joiner",
     "description": "Self-documenting wrapper functions for joining to collections in Magento 2",
+    "keywords": ["Mager Joiner"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rob Simmons",
+            "email": "rob.v.simmons@gmail.com"
+        }
+    ],
     "require": {
         "php": "^7.0"
     },
     "type": "magento2-module",
+    "version": "0.0.1",
     "autoload": {
         "files": [
             "registration.php"
